@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-a
+  name: app-b
   labels:
-    app: app-a
+    app: app-b
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: app-a
+      app: app-b
   template:
     metadata:
       labels:
-        app: app-a
+        app: app-b
     spec:
       containers:
       - name: nginx
@@ -31,15 +31,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-a
+  name: app-b
 spec:
   # type: LoadBalancer
   type: NodePort
   selector:
-    app: app-a
+    app: app-b
   ports:
   
     - protocol: TCP
-      port: 9999
+      port: 9991
       targetPort: 8080
       nodePort: 30304
