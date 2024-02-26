@@ -47,7 +47,7 @@ spec:
       containers:
       - name: kyc-pioncode
         image: docker.io/nginx:latest
-        imagePullPolicy: Never
+        # imagePullPolicy: Never
         resources:
           limits:
             memory: 512Mi
