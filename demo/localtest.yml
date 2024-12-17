@@ -34,7 +34,7 @@ metadata:
   labels:
     app: localtest
 spec:
-  replicas: 1
+  # replicas: 1
   selector:
     matchLabels:
       app: localtest
