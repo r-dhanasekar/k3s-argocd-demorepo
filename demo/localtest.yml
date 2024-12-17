@@ -1,0 +1,88 @@
+# apiVersion: autoscaling/v1
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: localtest
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: localtest
+#   minReplicas: 2
+#   maxReplicas: 10
+#   targetCPUUtilizationPercentage: 10
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: localtest-service
+spec:
+  selector:
+    app: localtest
+  ports: 
+    - name: localtest
+      port: 80
+      targetPort: localtest
+ 
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: localtest
+  labels:
+    app: localtest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: localtest
+  template:
+    metadata:
+      labels:
+        app: localtest
+    spec:
+      containers:
+      - name: localtest
+        # image: nginx:1.14.2
+        # image: docker.io/nginxdemos/hello
+        # image: docker.io/rancher/hello-world
+        # # image: docker.io/nginx-helloworld
+        # image: docker.io/monachus/rancher-demo # Portnumber 8080
+        image: localhost/web:latest  # Portnumber 80
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "0.5"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+        - containerPort: 80
+          name: localtest
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: localtest
+spec:
+  ingressClassName: nginx
+  tls:
+  - secretName: tls-secret
+    hosts: 
+    - localtest.dalmiabharat.com
+  rules:
+  - host: localtest.dalmiabharat.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: localtest-service
+            port:
+              number: 80
