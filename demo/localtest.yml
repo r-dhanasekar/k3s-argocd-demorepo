@@ -21,7 +21,7 @@ spec:
     app: localtest
   ports: 
     - name: localtest
-      port: 80
+      port: 8080
       targetPort: localtest
  
 
@@ -49,9 +49,9 @@ spec:
         # image: docker.io/nginxdemos/hello
         # image: docker.io/rancher/hello-world
         # # image: docker.io/nginx-helloworld
-        # image: docker.io/monachus/rancher-demo # Portnumber 8080
-        image: localhost/web:latest  # Portnumber 80
-        imagePullPolicy: Never
+        image: docker.io/monachus/rancher-demo # Portnumber 8080
+        # image: localhost/web:latest  # Portnumber 80
+        # imagePullPolicy: Never
         resources:
           limits:
             memory: 512Mi
@@ -60,7 +60,7 @@ spec:
             memory: 256Mi
             cpu: "0.2"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           name: localtest
 
 ---
@@ -85,4 +85,4 @@ spec:
           service:
             name: localtest-service
             port:
-              number: 80
+              number: 8080
