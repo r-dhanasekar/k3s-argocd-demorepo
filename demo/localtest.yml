@@ -71,10 +71,10 @@ metadata:
   name: localtest
 spec:
   ingressClassName: nginx
-  # tls:
-  # - secretName: tls-secret
-  #   hosts: 
-  #   - localtest.dalmiabharat.com
+  tls:
+  - secretName: tls-secret
+    hosts: 
+    - localtest.dalmiabharat.com
   rules:
   - host: localtest.dalmiabharat.com
     http:
