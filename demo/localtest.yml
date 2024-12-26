@@ -9,7 +9,7 @@ spec:
     name: localtest
   minReplicas: 1
   maxReplicas: 25
-  targetCPUUtilizationPercentage: 10
+  targetCPUUtilizationPercentage: 90
 
 ---
 apiVersion: v1
